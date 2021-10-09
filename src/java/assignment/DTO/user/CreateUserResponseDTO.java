@@ -1,37 +1,50 @@
-package assignment.user;
+package assignment.DTO.user;
 
-public class CreateUserErrorDTO {
+public class CreateUserResponseDTO {
 
-    private String userIDEror;
+    private String userIDError;
     private String fullNameError;
     private String passwordError;
     private String confirmError;
     private String phoneError;
     private String roleIDError;
     private String messageError;
+    private String messageSuccess;
 
-    public CreateUserErrorDTO() {
-        this.userIDEror = "";
+    public CreateUserResponseDTO() {
+        this.userIDError = "";
         this.fullNameError = "";
         this.passwordError = "";
         this.confirmError = "";
         this.phoneError = "";
         this.roleIDError = "";
         this.messageError = "";
+        this.messageSuccess = "";
     }
 
-    public CreateUserErrorDTO(String userIDEror, String fullNameError, String passwordError, String confirmError, String phoneError, String roleIDError, String messageError) {
-        this.userIDEror = userIDEror;
+    public CreateUserResponseDTO(String userIDError, String fullNameError,
+            String passwordError, String confirmError, String phoneError,
+            String roleIDError, String messageError, String messageSuccess) {
+        this.userIDError = userIDError;
         this.fullNameError = fullNameError;
         this.passwordError = passwordError;
         this.confirmError = confirmError;
         this.phoneError = phoneError;
         this.roleIDError = roleIDError;
         this.messageError = messageError;
+        this.messageSuccess = messageSuccess;
+        
     }
 
 
 
+    public String getMessageSuccess() {
+        return messageSuccess;
+    }
+
+    public void setMessageSuccess(String messageSuccess) {
+        this.messageSuccess = messageSuccess;
+    }
     public String getMessageError() {
         return messageError;
     }
@@ -40,12 +53,12 @@ public class CreateUserErrorDTO {
         this.messageError = messageError;
     }
 
-    public String getUserIDEror() {
-        return userIDEror;
+    public String getUserIDError() {
+        return userIDError;
     }
 
-    public void setUserIDEror(String userIDEror) {
-        this.userIDEror = userIDEror;
+    public void setUserIDError(String userIDError) {
+        this.userIDError = userIDError;
     }
 
     public String getFullNameError() {

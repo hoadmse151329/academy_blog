@@ -1,5 +1,5 @@
-<%@page import="assignment.user.UserDTO"%>
-<%@page import="assignment.user.CreateUserErrorDTO"%>
+<%@page import="assignment.DTO.user.UserDTO"%>
+<%@page import="assignment.DTO.user.CreateUserResponseDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,28 +27,28 @@
                 <div class="col"> 
                     <div class="form-container">
                         <%
-                            CreateUserErrorDTO userError = (CreateUserErrorDTO) request.getAttribute("USER_ERROR");
-                            if (userError == null) {
-                                userError = new CreateUserErrorDTO();
+                            CreateUserResponseDTO userResponse = (CreateUserResponseDTO) request.getAttribute("USER_RESPONSE");
+                            if (userResponse == null) {
+                                userResponse = new CreateUserResponseDTO();
                             }
                         %>
                         <form action="MainController" method="POST">
                             User ID<input class="form-control" type="text" name="id" required=""/>
-                            <%= userError.getUserIDEror()%></br>
+                            <%= userResponse.getUserIDError()%></br>
                             Password<input class="form-control" type="password" name="password" required=""/></br>
                             Confirm<input class="form-control" type="password" name="confirm" required=""/>
-                            <%= userError.getConfirmError()%></br>
+                            <%= userResponse.getConfirmError()%></br>
                             Full Name<input class="form-control" type="text" name="fullName" required=""/>
-                            <%= userError.getFullNameError()%></br>
+                            <%= userResponse.getFullNameError()%></br>
                              Address<input class="form-control" type="text" name="address" required=""/></br>
                              Phone<input class="form-control" type="text" name="phone" required=""/>
-                             <%= userError.getPhoneError()%></br>
+                             <%= userResponse.getPhoneError()%></br>
                             Email<input class="form-control" type="text" name="email" required=""/></br>
                             Avatar<input class="form-control" type="text" name="avatar" required=""/>
-                            <%= userError.getPhoneError()%></br>
+                            <%= userResponse.getPhoneError()%></br>
                             <input class="btn btn-primary" type="submit" name="action" value="Create"/>
                             <input class="btn btn-secondary" type="reset" value="Reset"/>
-                            <%= userError.getMessageError()%></br>   
+                            <%= userResponse.getMessageError()%></br>   
                         </form>
                        <a class="btn btn-link">Go back to login page</a>  
                     </div>

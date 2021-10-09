@@ -1,4 +1,4 @@
-package assignment.user;
+package assignment.DTO.user;
 
 public class UserDTO {
 
@@ -35,7 +35,7 @@ public class UserDTO {
         this.followerCount = followerCount;
     }
 
-    public UserDTO(String userID, String password, String fullName, String email, String avatar, String createdDate, boolean isActive, String role) {
+    public UserDTO(String userID, String password, String fullName, String email, String avatar, String createdDate, boolean isActive) {
         this.userID = userID;
         this.password = password;
         this.fullName = fullName;
@@ -43,7 +43,6 @@ public class UserDTO {
         this.avatar = avatar;
         this.createdDate = createdDate;
         this.isActive = isActive;
-        this.role = role;
     }
     
     public String getUserID() {

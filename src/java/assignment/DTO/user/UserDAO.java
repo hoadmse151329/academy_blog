@@ -1,4 +1,4 @@
-package assignment.user;
+package assignment.DTO.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -102,32 +102,32 @@ public class UserDAO {
 //        return list;
 //    }
 //
-//    public boolean deleteUser(String userID) throws SQLException {
-//        boolean check = false;
-//        Connection conn = null;
-//        PreparedStatement stm = null;
-//        try {
-//            conn = DBUtils.getConnection();
-//            if (conn != null) {
-//                String sql = "UPDATE tblUsers "
-//                        + "SET statusID=0 "
-//                        + "WHERE userid=? ";
-//                stm = conn.prepareStatement(sql);
-//                stm.setString(1, userID);
-//                check = stm.executeUpdate() > 0;
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (stm != null) {
-//                stm.close();
-//            }
-//            if (conn != null) {
-//                conn.close();
-//            }
-//        }
-//        return check;
-//    }
+    public boolean deleteUser(String userID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "UPDATE tblUsers "
+                        + "SET statusID=0 "
+                        + "WHERE userid=? ";
+                stm = conn.prepareStatement(sql);
+                stm.setString(1, userID);
+                check = stm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
 //
 //    public boolean updateUser(UserDTO user) throws SQLException {
 //        boolean check = false;
@@ -199,18 +199,18 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "INSERT INTO Users(id, password, fullName, email, avatar, createdDate, isActive, role) "
-                        + "VALUES(?,?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO Users(id, Password, FullName, Email, Avatar, IsActive, StudentClass, Profile, CreatedDate) "
+                        + "VALUES(?,?,?,?,?,?,?,?,?)";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, user.getUserID());
                 stm.setString(2, user.getPassword());
                 stm.setString(3, user.getFullName());
                 stm.setString(4, user.getEmail());
                 stm.setString(5, user.getAvatar());
-                stm.setString(6, user.getCreatedDate());
-                stm.setBoolean(7, user.isIsActive());
-                stm.setString(8, user.getRole());
-
+                stm.setBoolean(6, user.isIsActive());
+                stm.setString(7, user.getStudentClass());
+                stm.setString(8, user.getProfile());
+                stm.setString(9, user.getCreatedDate());
                 check = stm.executeUpdate() > 0;
             }
         } catch (Exception e) {

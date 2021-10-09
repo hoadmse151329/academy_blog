@@ -1,9 +1,3 @@
-<%-- 
-    Document   : homePage
-    Created on : Oct 2, 2021, 5:59:35 PM
-    Author     : PC
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
