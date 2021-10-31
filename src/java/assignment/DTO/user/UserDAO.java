@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import assignment.utils.DBUtils;
 
 public class UserDAO {
@@ -18,28 +16,24 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT FullName, Email, Avatar, CreatedDate, IsActive, "
-                        + "Gender, Role, StudentClass, Profile, PostCount, FollowerCount "
-                        + "FROM Users "
-                        + "WHERE id=? AND password=? ";
+                String sql = "SELECT * "
+                        + "FROM FPTUser "
+                        + "WHERE UserID=? AND Password=? ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, userID);
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {
-                    String fullName = rs.getString("fullName");
-                    String email = rs.getString("email");
-                    String avatar = rs.getString("avatar");
-                    String createdDate = rs.getString("createdDate");
-                    boolean isActive = rs.getBoolean("isActive");
-                    String gender = rs.getString("gender");
-                    String role = rs.getString("role");
-                    String studentClass = rs.getString("studentClass");
-                    String profile = rs.getString("profile");
-                    int postCount = rs.getInt("postCount");
-                    int followerCount = rs.getInt("followerCount");
+                    String fullName = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String avatar = rs.getString("Avatar");
+                    String createdDate = rs.getString("JoinedDate");
+                    String userStatus = rs.getString("UserStatusID");
+                    String role = rs.getString("RoleID");
+                    int postCount = rs.getInt("NumberOfPublicPost");
+                    String banReason = rs.getString("BanReason");
                     
-                    user = new UserDTO(userID, password, fullName, email, avatar, createdDate, isActive, role, gender, studentClass, profile, postCount, followerCount);
+                    user = new UserDTO(userID, password, email, fullName, avatar, postCount, createdDate, role, userStatus, banReason);
                 }
             }
         } catch (Exception e) {
@@ -109,9 +103,9 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "UPDATE tblUsers "
-                        + "SET statusID=0 "
-                        + "WHERE userid=? ";
+                String sql = "UPDATE tblFPTUser "
+                        + "SET UserStatusID=BAN "
+                        + "WHERE userID=? ";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, userID);
                 check = stm.executeUpdate() > 0;
@@ -199,21 +193,23 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "INSERT INTO Users(id, Password, FullName, Email, Avatar, IsActive, StudentClass, Profile, CreatedDate) "
-                        + "VALUES(?,?,?,?,?,?,?,?,?)";
+                String sql = "INSERT INTO FPTUser(UserID, Password, Email, FullName, Avatar, NumberOfPublicPost, JoinedDate, RoleID, UserStatusID, BanReason) "
+                        + "VALUES(?,?,?,?,?,?,?,?,?,?)";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, user.getUserID());
                 stm.setString(2, user.getPassword());
-                stm.setString(3, user.getFullName());
-                stm.setString(4, user.getEmail());
+                stm.setString(3, user.getEmail());
+                stm.setString(4, user.getFullName());
                 stm.setString(5, user.getAvatar());
-                stm.setBoolean(6, user.isIsActive());
-                stm.setString(7, user.getStudentClass());
-                stm.setString(8, user.getProfile());
-                stm.setString(9, user.getCreatedDate());
+                stm.setInt(6, user.getPostCount());
+                stm.setString(7, user.getCreatedDate());
+                stm.setString(8, user.getRole());
+                stm.setString(9, user.getUserStatus());
+                stm.setString(10, user.getBanReason());
                 check = stm.executeUpdate() > 0;
             }
         } catch (Exception e) {
+            Integer a = 0;
             e.printStackTrace();
         } finally {
             if (stm != null) {

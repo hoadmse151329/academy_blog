@@ -9,6 +9,6 @@ package assignment.controllers;
  *
  * @author admin
  */
-public class GetController {
+public class GetBlogController {
     
 }

@@ -1,54 +1,37 @@
 package assignment.controllers;
 
 import java.io.IOException;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import assignment.DTO.user.UserDAO;
-import assignment.DTO.user.UserDTO;
-import assignment.DTO.user.CreateUserResponseDTO;
+import javax.servlet.http.HttpSession;
+import assignment.DTO.blog.BlogDAO;
+import assignment.DTO.blog.BlogDTO;
+import static javax.security.auth.message.AuthStatus.SUCCESS;
 
-@WebServlet(name = "CreateUserController", urlPatterns = {"/CreateUserController"})
-public class CreateUserController extends HttpServlet {
+@WebServlet(name = "DeleteBlogController", urlPatterns = {"/DeleteBlogController"})
+public class DeleteBlogController extends HttpServlet {
 
-    private static final String LOGIN = "page-login.html";
+    private static final String SUCCESS = "index.html";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = LOGIN;
+
+        String url = SUCCESS;
         try {
-            String userID = request.getParameter("userID");
-            String password = request.getParameter("password");
-            String email = request.getParameter("email");
-            boolean check = true;
-            String error = "";
-            if (userID.length() > 20 || userID.length() < 5) {
-                error = "UserID length must be in range of[5,20]!";
-                check = false;
-            }         
+            String id = request.getParameter("id");
+            BlogDAO dao = new BlogDAO();
+            boolean check = dao.deleteBlog(id);
             if (check) {
-                Date date = new Date();
-                String createDate = date.toString();
-                UserDAO dao = new UserDAO();
-                UserDTO user = new UserDTO(userID, password, email,"","",0,createDate,"MT","ACTIVE",null);
-                boolean checkInsert = dao.insert(user);
-                if (checkInsert) {
-                    response.getWriter().write("Registered successfully");
-                } else {
-                    response.setStatus(400);
-                    response.getWriter().write("Registered failed");
-                }
-            } else {
-                response.setStatus(400);
-                response.getWriter().write(error);
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            response.setStatus(400);
-            response.getWriter().write("Error at CreateController: " + e.toString());
+            log("Error at DeleteController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

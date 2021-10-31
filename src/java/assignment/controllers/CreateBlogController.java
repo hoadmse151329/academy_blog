@@ -7,74 +7,71 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import assignment.DTO.user.UserDAO;
+import assignment.DTO.blog.BlogDAO;
+import assignment.DTO.blog.BlogDTO;
 import assignment.DTO.user.UserDTO;
-import assignment.DTO.user.CreateUserResponseDTO;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "CreateBlogController", urlPatterns = {"/CreateBlogController"})
 public class CreateBlogController extends HttpServlet {
 
-    private static final String ERROR = "createUser.jsp";
-    private static final String SUCCESS = "login.jsp";
+    private static final String ERROR = "createBlog.jsp";
+    private static final String SUCCESS = "index.html";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String userID = request.getParameter("id");
-            String password = request.getParameter("password");
-            String confirm = request.getParameter("confirm");
-            String fullName = request.getParameter("fullName");
-            String email = request.getParameter("email");
-            String avatar = request.getParameter("avatar");
-            String roleID = "US";
-            boolean isActive = true;
+            String title = request.getParameter("title");
+            String content = request.getParameter("body");
+            String category = request.getParameter("category");
             boolean check = true;
-            CreateUserResponseDTO userError = new CreateUserResponseDTO();
-            if (userID.length() > 20 || userID.length() < 5) {
-                userError.setUserIDError("UserID length must be in range of[5,20]!");
+            String checkError = "";
+            Date date = new Date();
+            String createDate = date.toString();
+            BlogDAO dao = new BlogDAO();
+            HttpSession session = request.getSession();
+            UserDTO user = new UserDTO();
+            try {
+                user = (UserDTO) session.getAttribute("LOGIN_USER");
+            } catch (Exception e) {
                 check = false;
+                checkError = "Please login to post";
             }
-            if (fullName.length() > 50 || fullName.length() < 5) {
-                userError.setFullNameError("Full name length must be in range of [5,50]!");
+            if (user == null) {
                 check = false;
+                checkError = "Please login to post";
             }
-            if (!password.equals(confirm)) {
-                userError.setConfirmError("Uncompatible confirm password, password and confirm password must be equal!");
+            if (title.equals("")) {
                 check = false;
+                checkError = "Please input title";
             }
-            if (!email.matches("[0-9]*") || email.length() > 10 || email.length() < 3) {
-                userError.setPhoneError("Phone number must be number and in range of [3-10]!");
+            if (content.equals("")) {
                 check = false;
+                checkError = "Please input content";
             }
-
+            if (category.equals("0")) {
+                check = false;
+                checkError = "Please select category";
+            }
             if (check) {
-                Date date = new Date();
-                String createDate = date.toString();
-
-                UserDAO dao = new UserDAO();
-                UserDTO user = new UserDTO(userID, password, fullName, email, avatar, createDate, isActive);
-//                boolean checkDuplicate = dao.checkDuplicate(userID);
-//                if (checkDuplicate) {
-//                    userError.setUserIDEror("Duplicate UserID: " + userID + " !");
-//                    request.setAttribute("USER_ERROR", userError);
-//                } else {
-                    boolean checkInsert = dao.insert(user);
-                    if (checkInsert) {
-                        url = SUCCESS;
-                    } else {
-                        userError.setMessageError("Can not insert, unknown error!");
-                        request.setAttribute("USER_ERROR", userError);
-                    }
-//                }
+                BlogDTO blog = new BlogDTO(0, title, category, user.getUserID(), content, 0, 0.0, createDate, content,
+                        createDate, createDate, "APPROVE", "");
+                String checkInsert = dao.insert(blog);
+                if (checkInsert.equals("SUCCESS")) {
+                    response.getWriter().write("Submit successfully");
+                } else {
+                    response.setStatus(400);
+                    response.getWriter().write(checkInsert);
+                }
             } else {
-                request.setAttribute("USER_ERROR", userError);
+                response.setStatus(400);
+                response.getWriter().write(checkError);
             }
         } catch (Exception e) {
-            log("Error at CreateController: " + e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            response.setStatus(400);
+            response.getWriter().write("Error at CreateController: " + e.toString());
         }
     }
 

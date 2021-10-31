@@ -1,0 +1,19 @@
+          <div class="col-auto ml-auto">
+            <div class="tt-user-info d-flex justify-content-center">
+              <div class="tt-avatar-icon tt-size-md">
+                <i class="tt-icon"
+                  ><svg><use xlink:href="#icon-ava-a"></use></svg
+                ></i>
+              </div>
+              <a href="page-profile-user.html" style="margin-top: 10px; width:50px">Name</a>
+            <div class="tt-col-btn" id="js-settings-btn">
+              <div class="tt-list-btn">
+                <a href="#" class="tt-btn-icon">
+                  <svg class="tt-icon">
+                    <use xlink:href="#icon-settings_fill"></use>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            </div>
+          </div>

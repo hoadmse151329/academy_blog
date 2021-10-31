@@ -6,51 +6,59 @@
 package assignment.DTO.blog;
 
 public class BlogDTO {
-    private String id;
-    private boolean isDeleted;
+
+    private Integer blogId;
     private String title;
-    private String summary;
-    private String blogContent;
+    private String categoryId;
     private String authorId;
-    private String blogStatusId;
+    private String fullContent;
+    private Integer votingStar;
+    private Double averageVote;
     private String createdDate;
-    private String lastEditedDate;
-    private String publicDate;    
+    private String latestEditedContent;
+    private String latestEditedDate;
+    private String approvedDate;
+    private String blogStatusId;
+    private String denyReason;
 
     public BlogDTO() {
     }
-    public BlogDTO(String id, 
-            boolean isDeleted,
+
+    public BlogDTO(
+            Integer blogId,
             String title,
-            String summary,
-            String blogContent,
+            String categoryId,
             String authorId,
-            String blogStatusId, String createdDate, String lastEditedDate, String publicDate) {
-        this.id = id;
-        this.isDeleted = isDeleted;
+            String fullContent,
+            Integer votingStar,
+            Double averageVote,
+            String createdDate,
+            String latestEditedContent,
+            String latestEditedDate,
+            String approvedDate,
+            String blogStatusId,
+            String denyReason) {
+        this.blogId = blogId;
         this.title = title;
-        this.summary = summary;
-        this.blogContent = blogContent;
+        this.categoryId = categoryId;
         this.authorId = authorId;
-        this.blogStatusId = blogStatusId;
+        this.fullContent = fullContent;
+        this.votingStar = votingStar;
+        this.averageVote = averageVote;
         this.createdDate = createdDate;
-        this.lastEditedDate = lastEditedDate;
-        this.publicDate = publicDate;
-    }
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.latestEditedContent = latestEditedContent;
+        this.latestEditedDate = latestEditedDate;
+        this.approvedDate = approvedDate;
+        this.blogStatusId = blogStatusId;
+        this.denyReason = denyReason;
     }
 
-    public boolean isIsDeleted() {
-        return isDeleted;
+    public Integer getBlogId() {
+        return blogId;
     }
 
-    public void setIsDeleted(boolean isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setBlogId(Integer blogId) {
+        this.blogId = blogId;
     }
 
     public String getTitle() {
@@ -61,20 +69,12 @@ public class BlogDTO {
         this.title = title;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getBlogContent() {
-        return blogContent;
-    }
-
-    public void setBlogContent(String blogContent) {
-        this.blogContent = blogContent;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getAuthorId() {
@@ -84,13 +84,29 @@ public class BlogDTO {
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
-
-    public String getBlogStatusId() {
-        return blogStatusId;
+    
+    public String getFullContent() {
+        return fullContent;
     }
 
-    public void setBlogStatusId(String blogStatusId) {
-        this.blogStatusId = blogStatusId;
+    public void setFullContent(String fullContent) {
+        this.fullContent = fullContent;
+    }
+
+    public Integer getVotingStar() {
+        return votingStar;
+    }
+
+    public void setVotingStar(Integer votingStar) {
+        this.votingStar = votingStar;
+    }
+
+    public Double getAverageVote() {
+        return averageVote;
+    }
+
+    public void setAverageVote(Double averageVote) {
+        this.averageVote = averageVote;
     }
 
     public String getCreatedDate() {
@@ -101,20 +117,43 @@ public class BlogDTO {
         this.createdDate = createdDate;
     }
 
-    public String getLastEditedDate() {
-        return lastEditedDate;
+    public String getLatestEditedContent() {
+        return latestEditedContent;
     }
 
-    public void setLastEditedDate(String lastEditedDate) {
-        this.lastEditedDate = lastEditedDate;
+    public void setLatestEditedContent(String latestEditedContent) {
+        this.latestEditedContent = latestEditedContent;
     }
 
-    public String getPublicDate() {
-        return publicDate;
+    public String getLatestEditedDate() {
+        return latestEditedDate;
     }
 
-    public void setPublicDate(String publicDate) {
-        this.publicDate = publicDate;
+    public void setLatestEditedDate(String latestEditedDate) {
+        this.latestEditedDate = latestEditedDate;
     }
 
+    public String getApprovedDate() {
+        return approvedDate;
+    }
+
+    public void setApprovedDate(String approvedDate) {
+        this.approvedDate = approvedDate;
+    }
+
+    public String getBlogStatusId() {
+        return blogStatusId;
+    }
+
+    public void setBlogStatusId(String blogStatusId) {
+        this.blogStatusId = blogStatusId;
+    }
+
+    public String getDenyReason() {
+        return denyReason;
+    }
+
+    public void setDenyReason(String denyReason) {
+        this.denyReason = denyReason;
+    }
 }

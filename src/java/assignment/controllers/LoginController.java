@@ -9,43 +9,46 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import assignment.DTO.user.UserDAO;
 import assignment.DTO.user.UserDTO;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 @WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
 public class LoginController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-    private static final String ADMIN_PAGE = "admin.jsp";
-    private static final String USER_PAGE = "user.jsp";
-    private static final String MENTOR_PAGE = "mentor.jsp";
-    private static final String AUTHOR_PAGE = "author.jsp";
-    
+    private static final String MAIN_PAGE = "index.html";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = MAIN_PAGE;
         try {
             String userID = request.getParameter("userID");
             String password = request.getParameter("password");
             UserDAO dao = new UserDAO();
             UserDTO user = dao.checkLogin(userID, password);
             HttpSession session = request.getSession();
+            String checkError = "";
             if (user != null) {
                 session.setAttribute("LOGIN_USER", user);
                 String roleID = user.getRole();
-                if ("AD".equals(roleID)) {
-                    url = ADMIN_PAGE;
-                } else if ("US".equals(roleID)) {
-                    url = USER_PAGE;
+                if ("US".equals(roleID)) {
+                    url = MAIN_PAGE;
+                    response.setStatus(200);
                 } else {
-                    session.setAttribute("ERROR_MESSAGE", "Your role is not supported!");
+                    checkError = "Your role is not supported!";
+                    response.setStatus(400);
+                    response.getWriter().write(checkError);
                 }
             } else {
-                session.setAttribute("ERROR_MESSAGE", "Incorrect UserID or Password!");
+                checkError = "Incorrect UserID or Password!";
+                response.setStatus(400);
+                response.getWriter().write(checkError);
             }
         } catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
-        } finally {
-            response.sendRedirect(url);
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            response.setStatus(400);
+            response.getWriter().write(errors.toString());
         }
     }
 
