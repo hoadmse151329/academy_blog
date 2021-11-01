@@ -1,53 +1,28 @@
 package assignment.controllers;
 
 import java.io.IOException;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import assignment.DTO.blog.BlogDAO;
-import assignment.DTO.blog.BlogDTO;
 import assignment.DTO.user.UserDTO;
-import java.util.List;
 import javax.servlet.http.HttpSession;
-import com.google.gson.*;
 
-@WebServlet(name = "GetBlogController", urlPatterns = {"/GetBlogController"})
-public class GetBlogController extends HttpServlet {
-
-    private static final String ERROR = "createBlog.jsp";
-    private static final String SUCCESS = "index.html";
+@WebServlet(name = "SessionController", urlPatterns = {"/SessionController"})
+public class SessionController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            boolean check = true;
-            String checkError = "";
-            BlogDAO dao = new BlogDAO();
-            HttpSession session = request.getSession();
-            UserDTO user = new UserDTO();
-            try {
-                user = (UserDTO) session.getAttribute("LOGIN_USER");
-            } catch (Exception e) {
-                check = false;
-                checkError = "Please login to post";
-            }
-            if (user == null) {
-                check = false;
-            }
-            if (check) {
-                List<BlogDTO> blogs = dao.getAllBlog(user.getUserID());
-                if (!blogs.isEmpty()){
-                     response.getWriter().write(new Gson().toJson(blogs));
-                }
-            }
-        } catch (Exception e) {
+        
+        HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+        if (user == null){
             response.setStatus(400);
-            response.getWriter().write("Error at CreateController: " + e.toString());
+        } else {
+            response.setStatus(200);
+            response.getWriter().write(user.getUserID());
         }
     }
 

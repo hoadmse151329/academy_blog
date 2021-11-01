@@ -11,6 +11,7 @@ $("form#blogData").submit(function (e) {
             category},
         success: function (resultText) {
             alert(resultText);
+            window.location.href = "./index.html";
         },
         error: function (xhr) {
             alert("FAIL: " + xhr.responseText);
