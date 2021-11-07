@@ -5,39 +5,11 @@
  */
 package assignment.DTO.blog;
 
+import java.sql.Timestamp;
+
 public class BlogDTO {
 
-    private Integer blogId;
-    private String title;
-    private String categoryId;
-    private String authorId;
-    private String fullContent;
-    private Integer votingStar;
-    private Double averageVote;
-    private String createdDate;
-    private String latestEditedContent;
-    private String latestEditedDate;
-    private String approvedDate;
-    private String blogStatusId;
-    private String denyReason;
-
-    public BlogDTO() {
-    }
-
-    public BlogDTO(
-            Integer blogId,
-            String title,
-            String categoryId,
-            String authorId,
-            String fullContent,
-            Integer votingStar,
-            Double averageVote,
-            String createdDate,
-            String latestEditedContent,
-            String latestEditedDate,
-            String approvedDate,
-            String blogStatusId,
-            String denyReason) {
+    public BlogDTO(Integer blogId, String title, String categoryId, String authorId, String fullContent, Integer votingStar, Double averageVote, Timestamp createdDate, String latestEditedContent, Timestamp latestEditedDate, Timestamp approvedDate, String blogStatusId, String denyReason) {
         this.blogId = blogId;
         this.title = title;
         this.categoryId = categoryId;
@@ -84,7 +56,7 @@ public class BlogDTO {
     public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
-    
+
     public String getFullContent() {
         return fullContent;
     }
@@ -109,11 +81,11 @@ public class BlogDTO {
         this.averageVote = averageVote;
     }
 
-    public String getCreatedDate() {
+    public Timestamp getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -125,19 +97,19 @@ public class BlogDTO {
         this.latestEditedContent = latestEditedContent;
     }
 
-    public String getLatestEditedDate() {
+    public Timestamp getLatestEditedDate() {
         return latestEditedDate;
     }
 
-    public void setLatestEditedDate(String latestEditedDate) {
+    public void setLatestEditedDate(Timestamp latestEditedDate) {
         this.latestEditedDate = latestEditedDate;
     }
 
-    public String getApprovedDate() {
+    public Timestamp getApprovedDate() {
         return approvedDate;
     }
 
-    public void setApprovedDate(String approvedDate) {
+    public void setApprovedDate(Timestamp approvedDate) {
         this.approvedDate = approvedDate;
     }
 
@@ -156,4 +128,18 @@ public class BlogDTO {
     public void setDenyReason(String denyReason) {
         this.denyReason = denyReason;
     }
+
+    private Integer blogId;
+    private String title;
+    private String categoryId;
+    private String authorId;
+    private String fullContent;
+    private Integer votingStar;
+    private Double averageVote;
+    private Timestamp createdDate;
+    private String latestEditedContent;
+    private Timestamp latestEditedDate;
+    private Timestamp approvedDate;
+    private String blogStatusId;
+    private String denyReason;
 }

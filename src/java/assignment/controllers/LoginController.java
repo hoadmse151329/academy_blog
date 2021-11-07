@@ -31,7 +31,7 @@ public class LoginController extends HttpServlet {
             if (user != null) {
                 session.setAttribute("LOGIN_USER", user);
                 String roleID = user.getRole();
-                if ("US".equals(roleID)) {
+                if ("ST".equals(roleID) || "MT".equals(roleID)) {
                     url = MAIN_PAGE;
                     response.setStatus(200);
                 } else {

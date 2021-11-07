@@ -6,32 +6,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import assignment.DTO.blog.BlogDAO;
-import assignment.DTO.blog.BlogDTO;
-import static javax.security.auth.message.AuthStatus.SUCCESS;
 
 @WebServlet(name = "DeleteBlogController", urlPatterns = {"/DeleteBlogController"})
 public class DeleteBlogController extends HttpServlet {
-
-    private static final String SUCCESS = "index.html";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String url = SUCCESS;
         try {
-            String id = request.getParameter("id");
+            Integer id = Integer.parseInt(request.getParameter("id"));
             BlogDAO dao = new BlogDAO();
-            boolean check = dao.deleteBlog(id);
-            if (check) {
-                url = SUCCESS;
+            String checkDelete = dao.deleteBlog(id);
+            if (checkDelete.equals("SUCCESS")) {
+                response.getWriter().write("Delete successfully");
             }
         } catch (Exception e) {
-            log("Error at DeleteController: " + e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            response.setStatus(400);
+            response.getWriter().write("Error at DeleteController: " + e.toString());
         }
     }
 

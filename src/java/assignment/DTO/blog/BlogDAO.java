@@ -30,6 +30,11 @@ public class BlogDAO {
             if (conn != null) {
                 String sql = "INSERT INTO Blog(Title, CategoryID, AuthorID, FullContent, VotingStar, AvgVote, CreatedDate, LatestEditedContent, LatestEditedDate, ApproveDate, BlogStatusID, DenyReason) "
                         + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+//                DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+//        .parseCaseInsensitive()
+//        .appendPattern("MM/dd/yyyy hh:mm:ss a")
+//        .toFormatter(Locale.US);
+//        LocalDateTime createdDate = LocalDateTime.parse(blog.getCreatedDate(), formatter);
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, blog.getTitle());
                 stm.setString(2, blog.getCategoryId());
@@ -37,10 +42,10 @@ public class BlogDAO {
                 stm.setString(4, blog.getFullContent());
                 stm.setInt(5, blog.getVotingStar());
                 stm.setDouble(6, blog.getAverageVote());
-                stm.setString(7, blog.getCreatedDate());
+                stm.setTimestamp(7, blog.getCreatedDate());
                 stm.setString(8, blog.getLatestEditedContent());
-                stm.setString(9, blog.getLatestEditedDate());
-                stm.setString(10, blog.getApprovedDate());
+                stm.setTimestamp(9, blog.getLatestEditedDate());
+                stm.setTimestamp(10, blog.getApprovedDate());
                 stm.setString(11, blog.getBlogStatusId());
                 stm.setString(12, blog.getDenyReason());
                 if (stm.executeUpdate() == 0) {
@@ -62,7 +67,7 @@ public class BlogDAO {
         return check;
     }
 
-    public List<BlogDTO> getAllBlog(String userId) throws SQLException {
+    public List<BlogDTO> getUserBlog(String userId) throws SQLException {
         List<BlogDTO> blogs = new ArrayList<BlogDTO>();
         Connection conn = null;
         PreparedStatement stm = null;
@@ -70,7 +75,7 @@ public class BlogDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "SELECT * FROM Blog WHERE AuthorId = ?";
+                String sql = "SELECT * FROM Blog WHERE AuthorID = ?";
                 stm = conn.prepareStatement(sql);
                 stm.setString(1, userId);
                 ResultSet rs = stm.executeQuery();
@@ -83,10 +88,10 @@ public class BlogDAO {
                             rs.getString("FullContent"),
                             rs.getInt("VotingStar"),
                             rs.getDouble("AvgVote"),
-                            rs.getString("CreatedDate"),
+                            rs.getTimestamp("CreatedDate"),
                             rs.getString("LatestEditedContent"),
-                            rs.getString("LatestEditedDate"),
-                            rs.getString("ApproveDate"),
+                            rs.getTimestamp("LatestEditedDate"),
+                            rs.getTimestamp("ApproveDate"),
                             rs.getString("BlogStatusID"),
                             rs.getString("DenyReason"));
                     blogs.add(blog);
@@ -105,21 +110,66 @@ public class BlogDAO {
         return blogs;
     }
 
-    public boolean deleteBlog(String blogId) throws SQLException {
+    public List<BlogDTO> getAllBlog() throws SQLException {
+        List<BlogDTO> blogs = new ArrayList<BlogDTO>();
+        Connection conn = null;
+        PreparedStatement stm = null;
 
-        boolean check = false;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT * FROM Blog";
+                stm = conn.prepareStatement(sql);
+                ResultSet rs = stm.executeQuery();
+                while (rs.next()) {
+                    BlogDTO blog = new BlogDTO(
+                            rs.getInt("BlogID"),
+                            rs.getString("Title"),
+                            rs.getString("CategoryID"),
+                            rs.getString("AuthorID"),
+                            rs.getString("FullContent"),
+                            rs.getInt("VotingStar"),
+                            rs.getDouble("AvgVote"),
+                            rs.getTimestamp("CreatedDate"),
+                            rs.getString("LatestEditedContent"),
+                            rs.getTimestamp("LatestEditedDate"),
+                            rs.getTimestamp("ApproveDate"),
+                            rs.getString("BlogStatusID"),
+                            rs.getString("DenyReason"));
+                    blogs.add(blog);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return blogs;
+    }
+
+    public String deleteBlog(Integer blogId) throws SQLException {
+        String check = "SUCCESS";
         Connection conn = null;
         PreparedStatement stm = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                String sql = "UPDATE Blog SET IsDeleted = 1 WHERE id = ?";
+                String sql = "DELETE FROM Blog WHERE BlogID = ?";
                 stm = conn.prepareStatement(sql);
-                stm.setString(1, blogId);
-                check = stm.executeUpdate() > 0;
+                stm.setInt(1, blogId);
+            }
+            if (stm.executeUpdate() == 0) {
+                check = "FAIL";
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            StringWriter errors = new StringWriter();
+            e.printStackTrace(new PrintWriter(errors));
+            check = errors.toString();
         } finally {
             if (stm != null) {
                 stm.close();

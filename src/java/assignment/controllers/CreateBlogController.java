@@ -10,18 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import assignment.DTO.blog.BlogDAO;
 import assignment.DTO.blog.BlogDTO;
 import assignment.DTO.user.UserDTO;
+import java.sql.Timestamp;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "CreateBlogController", urlPatterns = {"/CreateBlogController"})
 public class CreateBlogController extends HttpServlet {
 
-    private static final String ERROR = "createBlog.jsp";
-    private static final String SUCCESS = "index.html";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
         try {
             String title = request.getParameter("title");
             String content = request.getParameter("body");
@@ -29,7 +27,7 @@ public class CreateBlogController extends HttpServlet {
             boolean check = true;
             String checkError = "";
             Date date = new Date();
-            String createDate = date.toString();
+            Timestamp createDate = new Timestamp(date.getTime());
             BlogDAO dao = new BlogDAO();
             HttpSession session = request.getSession();
             UserDTO user = new UserDTO();

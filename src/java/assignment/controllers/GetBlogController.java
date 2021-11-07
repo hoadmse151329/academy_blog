@@ -30,17 +30,8 @@ public class GetBlogController extends HttpServlet {
             BlogDAO dao = new BlogDAO();
             HttpSession session = request.getSession();
             UserDTO user = new UserDTO();
-            try {
-                user = (UserDTO) session.getAttribute("LOGIN_USER");
-            } catch (Exception e) {
-                check = false;
-                checkError = "Please login to post";
-            }
-            if (user == null) {
-                check = false;
-            }
             if (check) {
-                List<BlogDTO> blogs = dao.getAllBlog(user.getUserID());
+                List<BlogDTO> blogs = dao.getAllBlog();
                 if (!blogs.isEmpty()){
                      response.getWriter().write(new Gson().toJson(blogs));
                 }

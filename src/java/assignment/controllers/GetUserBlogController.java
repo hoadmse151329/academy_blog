@@ -7,56 +7,43 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import assignment.DTO.user.UserDAO;
+import assignment.DTO.blog.BlogDAO;
+import assignment.DTO.blog.BlogDTO;
 import assignment.DTO.user.UserDTO;
+import java.util.List;
+import javax.servlet.http.HttpSession;
+import com.google.gson.*;
 
-@WebServlet(name = "CreateUserController", urlPatterns = {"/CreateUserController"})
-public class CreateUserController extends HttpServlet {
-
-    private static final String LOGIN = "page-login.html";
+@WebServlet(name = "GetUserBlogController", urlPatterns = {"/GetUserBlogController"})
+public class GetUserBlogController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = LOGIN;
         try {
-            String userID = request.getParameter("userID");
-            String fullName = request.getParameter("fullName");
-            String password = request.getParameter("password");
-            String email = request.getParameter("email");
             boolean check = true;
-            String error = "";
-            if (userID.length() > 20 || userID.length() < 5) {
-                error = "UserID length must be in range of[5,20]!";
+            String checkError = "";
+            BlogDAO dao = new BlogDAO();
+            HttpSession session = request.getSession();
+            UserDTO user = new UserDTO();
+            try {
+                user = (UserDTO) session.getAttribute("LOGIN_USER");
+            } catch (Exception e) {
                 check = false;
+                checkError = "Please login first";
             }
-            if (password.equals("")) {
+            if (user == null) {
                 check = false;
-                error = "Please fill password";
-            }
-            if (email.equals("")) {
-                check = false;
-                error = "Please fill email";
-            }
-            if (fullName.equals("")) {
-                check = false;
-                error = "Please fill full name";
+                checkError = "Please login first";
             }
             if (check) {
-                Date date = new Date();
-                String createDate = date.toString();
-                UserDAO dao = new UserDAO();
-                UserDTO user = new UserDTO(userID, password, email, fullName, "", 0, createDate, "ST", "ACTIVE", null);
-                boolean checkInsert = dao.insert(user);
-                if (checkInsert) {
-                    response.getWriter().write("Registered successfully");
-                } else {
-                    response.setStatus(400);
-                    response.getWriter().write("Registered failed");
+                List<BlogDTO> blogs = dao.getUserBlog(user.getUserID());
+                if (!blogs.isEmpty()) {
+                    response.getWriter().write(new Gson().toJson(blogs));
                 }
             } else {
                 response.setStatus(400);
-                response.getWriter().write(error);
+                response.getWriter().write(checkError);
             }
         } catch (Exception e) {
             response.setStatus(400);

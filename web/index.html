@@ -54,7 +54,7 @@
                                         <a href="page-categories.html"><span>Categories</span></a>
                                     </li>
                                     <li>
-                                        <a href="page-tabs.html"><span>Trending</span></a>
+                                        <a href="page-create-topic.html"><span>New</span></a>
                                     </li>
                                     <li>
                                         <a href="page-profile-user.html"><span>Profile</span></a>
@@ -143,7 +143,7 @@
                                    ><svg><use xlink:href="#icon-ava-a"></use></svg
                                     ></i>
                             </div>
-                            <a href="page-profile-user.html" style="margin-top: 10px; width:50px">Name</a>
+                            <a href="page-profile-user.html" style="margin-top: 10px; width:50px" id="userName"></a>
                             <div class="tt-col-btn" id="js-settings-btn">
                                 <div class="tt-list-btn">
                                     <a href="#" class="tt-btn-icon">
@@ -158,125 +158,202 @@
                 </div>
             </div>
         </header>
-        <main id="tt-pageContent" class="tt-offset-small">
-            <div class="container">
-                <div class="tt-topic-list" id="blogContent">
-                    <div class="tt-list-header">
-                        <div class="tt-col-topic">Topic</div>
-                        <div class="tt-col-category">Category</div>
-                        <div class="tt-col-value hide-mobile">Likes</div>
-                        <div class="tt-col-value hide-mobile">Replies</div>
-                        <div class="tt-col-value hide-mobile">Views</div>
-                        <div class="tt-col-value">Activity</div>
-                    </div>
-<!--                    <div class="tt-item">
-                        <div class="tt-col-avatar">
-                            <svg class="tt-icon">
-                            <use xlink:href="#icon-ava-l"></use>
-                            </svg>
-                        </div>
-                        <div class="tt-col-description">
-                            <h6 class="tt-title">
-                                <a href="page-single-topic.html">
-                                    We’re removing Envato Credits from Market
-                                </a>
-                            </h6>
-                            <div class="row align-items-center no-gutters hide-desktope">
-                                <div class="col-11">
-                                    <ul class="tt-list-badge">
-                                        <li class="show-mobile">
-                                            <a href="#"
-                                               ><span class="tt-color02 tt-badge">video</span></a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-1 ml-auto show-mobile">
-                                    <div class="tt-value">2h</div>
-                                </div>
+        <main id="tt-pageContent" class="tt-offset-small tt-custom">
+            <div class="side-bar">
+                <h2>Top Category</h2>
+                <ul class="side-menu">
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color01 tt-badge">politics</span></a
+                                        >
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="tt-col-category">
-                            <span class="tt-color02 tt-badge">video</span>
-                        </div>
-                        <div class="tt-col-value hide-mobile">584</div>
-                        <div class="tt-col-value tt-color-select hide-mobile">35</div>
-                        <div class="tt-col-value hide-mobile">1.3k</div>
-                        <div class="tt-col-value hide-mobile">2h</div>
-                    </div>
-                    <div class="tt-item">
-                        <div class="tt-col-avatar">
-                            <svg class="tt-icon">
-                            <use xlink:href="#icon-ava-l"></use>
-                            </svg>
-                        </div>
-                        <div class="tt-col-description">
-                            <h6 class="tt-title">
-                                <a href="page-single-topic.html">
-                                    We’re removing Envato Credits from Market
-                                </a>
-                            </h6>
-                            <div class="row align-items-center no-gutters hide-desktope">
-                                <div class="col-11">
-                                    <ul class="tt-list-badge">
-                                        <li class="show-mobile">
-                                            <a href="#"
-                                               ><span class="tt-color02 tt-badge">video</span></a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-1 ml-auto show-mobile">
-                                    <div class="tt-value">2h</div>
-                                </div>
+                    </li>
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color02 tt-badge">politics</span></a
+                                        >
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="tt-col-category">
-                            <span class="tt-color02 tt-badge">video</span>
-                        </div>
-                        <div class="tt-col-value hide-mobile">584</div>
-                        <div class="tt-col-value tt-color-select hide-mobile">35</div>
-                        <div class="tt-col-value hide-mobile">1.3k</div>
-                        <div class="tt-col-value hide-mobile">2h</div>
-                    </div>
-                    <div class="tt-item">
-                        <div class="tt-col-avatar">
-                            <svg class="tt-icon">
-                            <use xlink:href="#icon-ava-l"></use>
-                            </svg>
-                        </div>
-                        <div class="tt-col-description">
-                            <h6 class="tt-title">
-                                <a href="page-single-topic.html">
-                                    We’re removing Envato Credits from Market
-                                </a>
-                            </h6>
-                            <div class="row align-items-center no-gutters hide-desktope">
-                                <div class="col-11">
-                                    <ul class="tt-list-badge">
-                                        <li class="show-mobile">
-                                            <a href="#"
-                                               ><span class="tt-color02 tt-badge">video</span></a
-                                            >
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-1 ml-auto show-mobile">
-                                    <div class="tt-value">2h</div>
-                                </div>
+                    </li>
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color03 tt-badge">politics</span></a
+                                        >
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="tt-col-category">
-                            <span class="tt-color02 tt-badge">video</span>
+                    </li>
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color04 tt-badge">politics</span></a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="tt-col-value hide-mobile">584</div>
-                        <div class="tt-col-value tt-color-select hide-mobile">35</div>
-                        <div class="tt-col-value hide-mobile">1.3k</div>
-                        <div class="tt-col-value hide-mobile">2h</div>
-                    </div>-->
+                    </li>
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color05 tt-badge">politics</span></a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color06 tt-badge">politics</span></a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="container" id="blogContent">
+                <div class="content-box">
+                    <div class="avatar-box">
+                        <div class="avatar-pic">
+                            <a href="page-single-user.html"
+                               ><img src="images/single-topic-img01.jpg" alt=""
+                                  /></a>
+                        </div>
+                        <div class="avatar-name">
+                            <div class="name">
+                                <a href="page-single-user.html"> Dylan 89 </a>
+                            </div>
+                            <div class="date-up"><span> dd/mm/yy </span></div>
+                        </div>
+                    </div>
+                    <div class="title-box">
+                        <a href="page-single-topic.html"><h2>title here...</h2></a>
+                        <ul>
+                            <li><a href="#">#Tag</a></li>
+                            <li><a href="#">#Tag</a></li>
+                            <li><a href="#">#Tag</a></li>
+                            <li><a href="#">#Tag</a></li>
+                        </ul>
+                        <span>Comment:100</span>
+                    </div>
                 </div>
             </div>
+            <div class="side-bar">
+                <h2>Tag Trending</h2>
+                <ul class="side-menu">
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color01 tt-badge">#tag</span></a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color02 tt-badge">#tag</span></a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color03 tt-badge">#tag</span></a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color04 tt-badge">#tag</span></a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color05 tt-badge">#tag</span></a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="side-menu-items">
+                        <div class="tt-item tt-items-sidebar">
+                            <div class="tt-item-header">
+                                <ul class="tt-list-badge">
+                                    <li>
+                                        <a href="page-category-select.html"
+                                           ><span class="tt-color06 tt-badge">#tag</span></a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </main>
+        <footer class="footer-blog">© Powered by FPT University</footer>
         <div id="js-popup-settings" class="tt-popup-settings">
             <div class="tt-btn-col-close">
                 <a href="#">

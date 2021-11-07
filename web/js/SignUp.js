@@ -12,7 +12,7 @@ $("form#signUpData").submit(function (e) {
             password,
             email},
         success: function (resultText) {
-            alert(resultText);
+            window.location.href = "./page-login.html";
         },
         error: function (xhr) {
             alert("FAIL: " + xhr.responseText);
