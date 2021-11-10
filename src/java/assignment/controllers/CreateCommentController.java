@@ -7,63 +7,45 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import assignment.DTO.blog.BlogDAO;
-import assignment.DTO.blog.BlogDTO;
-import assignment.DTO.category.CategoryDTO;
+import assignment.DTO.comment.CommentDAO;
+import assignment.DTO.comment.CommentDTO;
 import assignment.DTO.user.UserDTO;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "CreateBlogController", urlPatterns = {"/CreateBlogController"})
-public class CreateBlogController extends HttpServlet {
+@WebServlet(name = "CreateCommentController", urlPatterns = {"/CreateCommentController"})
+public class CreateCommentController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            String title = request.getParameter("title");
-            String content = request.getParameter("body");
-            String category = request.getParameter("category");
-            Type stringListType = new TypeToken<ArrayList<String>>(){}.getType();
-            List<String> tags = new Gson().fromJson(request.getParameter("tag"), stringListType);       
+            String content = request.getParameter("content");
+            Integer blogId = Integer.parseInt(request.getParameter("blogId"));
             boolean check = true;
             String checkError = "";
             Date date = new Date();
-            Timestamp createDate = new Timestamp(date.getTime());
-            BlogDAO dao = new BlogDAO();
+            Timestamp createdDate = new Timestamp(date.getTime());
+            CommentDAO dao = new CommentDAO();
             HttpSession session = request.getSession();
             UserDTO user = new UserDTO();
             try {
                 user = (UserDTO) session.getAttribute("LOGIN_USER");
             } catch (Exception e) {
                 check = false;
-                checkError = "Please login to post";
+                checkError = "Please login to comment";
             }
             if (user == null) {
                 check = false;
-                checkError = "Please login to post";
-            }
-            if (title.equals("")) {
-                check = false;
-                checkError = "Please input title";
+                checkError = "Please login to comment";
             }
             if (content.equals("")) {
                 check = false;
                 checkError = "Please input content";
             }
-            if (category.equals("0")) {
-                check = false;
-                checkError = "Please select category";
-            }
             if (check) {
-                BlogDTO blog = new BlogDTO(0, title, new CategoryDTO(category, ""), user.getUserID(), content, 0, 0.0, createDate, content,
-                        createDate, createDate, "APPROVE", "", tags);
-                String checkInsert = dao.insert(blog);
+                CommentDTO comment = new CommentDTO(0, blogId, user.getUserID(), createdDate, content);
+                String checkInsert = dao.insert(comment);
                 if (checkInsert.equals("SUCCESS")) {
                     response.getWriter().write("Submit successfully");
                 } else {

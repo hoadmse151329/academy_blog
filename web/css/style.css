@@ -568,7 +568,7 @@ a {
 	background-color: transparent;
 	text-decoration: none;
 	outline: 0;
-	color: #2172cd
+	color: #000000;
 }
 
 a:hover {
@@ -5089,7 +5089,19 @@ textarea:focus:-ms-input-placeholder {
 .form-default .form-control:focus {
 	border-color: #2172cd
 }
-
+.cach-ra{
+	height:30px;
+}
+.btn-edit-del{
+	padding:5px;
+	width:50px;
+	height:50px;
+	margin-right: 10px;
+}
+.btn-edit-del>img{
+	width: 50%;
+	height:50%;
+}
 .form-default .pt-required {
 	display: inline-block;
 	float: right;
@@ -6881,9 +6893,43 @@ hr {
 }
 
 #tt-pageContent.tt-offset-small {
-	padding-top: 70px
+	padding-top: 70px;
 }
-
+.tt-custom{
+	display:flex;
+}
+.side-bar{
+	width:20%;
+	min-height:50vh;
+	background-color:rgb(233, 233, 233);
+	padding:15px;
+	border-radius: 10px;
+}
+.side-bar>h2{
+	text-align:center;
+	margin-bottom: 1em;
+}
+.side-bar>ul{
+	list-style-type:none;
+	padding: 10px;
+}
+.side-bar>li>a{
+	color:black;
+}
+.side-menu{
+	z-index: 1;
+	border-radius: 10px;
+}
+.side-menu-items{
+	padding:5px;
+}
+.footer-blog{
+	text-align:center;
+}
+.tt-items-sidebar{
+	display:flex;
+	align-items: center;
+}
 @media (max-width:575px) {
 	#tt-pageContent .container[class^=tt-custom-] {
 		padding-left: 0;
@@ -7134,7 +7180,53 @@ hr {
 	width: 40px;
 	height: 40px
 }
-
+.box-avatar{
+	padding:0px 15px;
+}
+.content-box{
+	width:100%;
+	min-height: 100px;
+	margin-top:30px;
+	box-shadow:0px 0px 1px 1px rgb(202, 202, 202);
+	border-radius:5px;
+}
+.avatar-box{
+	width:100%;
+	min-height:70px;
+	display:flex;
+	justify-content:flex-start;
+	align-items: center;
+	padding: 10px;
+}
+.avatar-pic{
+	width:50px;
+	height:50px;
+	border-radius:50%;
+	position:relative;
+	overflow:hidden;
+	margin-right: 10px;
+}
+.avatar-pic>img{
+ width:100%;
+ height:100%;
+ position:absolute;
+}
+.date-up>span{
+	font-size:12px;
+}
+.title-box{
+		width:100%;
+		min-height:100px;
+		padding:30px;
+}
+.title-box>ul{
+	list-style: none;
+	padding:0;
+	display:flex;
+}
+.title-box>ul>li{
+	margin-right: 1em;
+}
 @media (min-width:992px) {
 	.tt-topic-list .tt-item .tt-col-avatar {
 		width: 8.33333%
@@ -8637,7 +8729,7 @@ html.ie.gecko body.modal-open {
 
 .tt-popup-settings textarea.form-control {
 	height: 129px;
-	padding: 19px 12px 12px 28px
+	padding: 19px 12px 12px 28px;
 }
 
 @media (min-width:451px) {

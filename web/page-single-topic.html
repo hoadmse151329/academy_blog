@@ -57,9 +57,6 @@
                                         <a href="page-tabs.html"><span>Trending</span></a>
                                     </li>
                                     <li>
-                                        <a href="page-create-topic.html"><span>New</span></a>
-                                    </li>
-                                    <li>
                                         <a href="page-profile-user.html"><span>Profile</span></a>
                                         <ul>
                                             <li><a href="index.html">Home</a></li>
@@ -195,8 +192,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="tt-item">
-                    <div class="tt-single-topic">
+                <div class="tt-item" id="commentContent">
+<!--                    <div class="tt-single-topic">
                         <div class="tt-item-header pt-noborder">
                             <div class="tt-item-info info-top">
                                 <div class="tt-avatar-icon">
@@ -219,13 +216,13 @@
                             Are there any special recommendations for design or an updated
                             guide that includes new preview sizes, including retina displays?
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="tt-wrapper-inner">
                     <div class="pt-editor form-default">
                         <h6 class="pt-title">Post Your Reply</h6>
                         <div class="form-group">
-                            <textarea
+                            <textarea id="commentData"
                                 name="message"
                                 class="form-control"
                                 rows="5"
@@ -249,7 +246,7 @@
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <a href="#" class="btn btn-secondary btn-width-lg">Reply</a>
+                                <a href="#" class="btn btn-secondary btn-width-lg" id="submitButton">Reply</a>
                             </div>
                         </div>
                     </div>

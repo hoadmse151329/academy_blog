@@ -5,14 +5,21 @@
  */
 package assignment.DTO.blog;
 
+import assignment.DTO.category.CategoryDTO;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class BlogDTO {
 
-    public BlogDTO(Integer blogId, String title, String categoryId, String authorId, String fullContent, Integer votingStar, Double averageVote, Timestamp createdDate, String latestEditedContent, Timestamp latestEditedDate, Timestamp approvedDate, String blogStatusId, String denyReason) {
+    public BlogDTO(Integer blogId, String title, CategoryDTO category, 
+            String authorId, String fullContent, Integer votingStar, 
+            Double averageVote, Timestamp createdDate, 
+            String latestEditedContent, Timestamp latestEditedDate, 
+            Timestamp approvedDate, String blogStatusId, String denyReason,
+            List<String> tags) {
         this.blogId = blogId;
         this.title = title;
-        this.categoryId = categoryId;
+        this.category = category;
         this.authorId = authorId;
         this.fullContent = fullContent;
         this.votingStar = votingStar;
@@ -23,6 +30,7 @@ public class BlogDTO {
         this.approvedDate = approvedDate;
         this.blogStatusId = blogStatusId;
         this.denyReason = denyReason;
+        this.tags = tags;
     }
 
     public Integer getBlogId() {
@@ -32,6 +40,14 @@ public class BlogDTO {
     public void setBlogId(Integer blogId) {
         this.blogId = blogId;
     }
+    
+    public CategoryDTO getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryDTO category) {
+        this.category = category;
+    }
 
     public String getTitle() {
         return title;
@@ -39,14 +55,6 @@ public class BlogDTO {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
     }
 
     public String getAuthorId() {
@@ -129,9 +137,17 @@ public class BlogDTO {
         this.denyReason = denyReason;
     }
 
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+    
     private Integer blogId;
     private String title;
-    private String categoryId;
+    private CategoryDTO category;
     private String authorId;
     private String fullContent;
     private Integer votingStar;
@@ -142,4 +158,5 @@ public class BlogDTO {
     private Timestamp approvedDate;
     private String blogStatusId;
     private String denyReason;
+    private List<String> tags;
 }

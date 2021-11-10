@@ -1,29 +1,9 @@
 $(document).ready(function () {
-    var guestContent = document.getElementById("guestContent");
-    var userContent = document.getElementById("userContent");
     var blogContent = document.getElementById("blogContent");
-    var userName = document.getElementById("userName");
-    var userId = null;
-
+    var param = new URLSearchParams(window.location.search);
     $.ajax({
-        url: "SessionController",
-        type: "GET",
-        async: false,
-        success: function (result) {
-            guestContent.style.display = "none";
-            userContent.style.display = "flex";
-            profileContent.style.display = "list-item";
-            userName.innerHTML = result;
-            userId = result;
-        },
-        error: function (xhr) {
-            guestContent.style.display = "flex";
-            userContent.style.display = "none";
-            profileContent.style.display = "none";
-        }
-    });
-    $.ajax({
-        url: "GetBlogController",
+        url: "GetCategoryBlogController",
+        data: {category: param.get("category")},
         type: "GET",
         success: function (result) {
             var returnedData = JSON.parse(result);
@@ -35,7 +15,7 @@ $(document).ready(function () {
                     var detailLink = blog.querySelector('.detail-link');
                     $(detailLink).click(returnedData[i], detailPage);
                     var tagList = blog.querySelector('#tagList');
-                    returnedData[i].tags.forEach(tag => tagList.innerHTML += "<li><a href='#'>"+tag+"</a></li>");
+                    returnedData[i].tags.forEach(tag => tagList.innerHTML += "<li><a href='#'>" + tag + "</a></li>");
                     blogContent.append(blog);
                 }
             }
