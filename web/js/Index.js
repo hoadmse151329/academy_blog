@@ -12,14 +12,12 @@ $(document).ready(function () {
         success: function (result) {
             guestContent.style.display = "none";
             userContent.style.display = "flex";
-            profileContent.style.display = "list-item";
             userName.innerHTML = result;
             userId = result;
         },
         error: function (xhr) {
             guestContent.style.display = "flex";
             userContent.style.display = "none";
-            profileContent.style.display = "none";
         }
     });
     $.ajax({
@@ -31,7 +29,7 @@ $(document).ready(function () {
                 for (i = 0; i < returnedData.length; i++) {
                     var blog = document.createElement("div");
                     blog.className = 'content-box';
-                    blog.innerHTML = "<div class='avatar-box'> <div class='avatar-pic'> <a href='page-single-user.html' ><img src='images/single-topic-img01.jpg' alt='' /></a> </div> <div class='avatar-name'> <div class='name'> <a href='page-single-user.html'>" + returnedData[i].authorId + "</a> </div> <div class='date-up'><span>" + returnedData[i].createdDate + "</span></div> </div> </div> <div class='title-box'><a href='#' class='detail-link'><h2>" + returnedData[i].title + "</h2></a><ul id='tagList'></ul> <span>Comment:0</span> </div>";
+                    blog.innerHTML = "<div class='avatar-box'> <div class='avatar-pic'> <a href='page-single-user.html' ><img src='images/single-topic-img01.jpg' alt='' /></a> </div> <div class='avatar-name'> <div class='name'> <a href='page-single-user.html?user="+returnedData[i].authorId+"'>" + returnedData[i].authorId + "</a> </div> <div class='date-up'><span>" + returnedData[i].createdDate + "</span></div> </div> </div> <div class='title-box'><a href='#' class='detail-link'><h2>" + returnedData[i].title + "</h2></a><ul id='tagList'></ul> <span>Comment:0</span> </div>";
                     var detailLink = blog.querySelector('.detail-link');
                     $(detailLink).click(returnedData[i], detailPage);
                     var tagList = blog.querySelector('#tagList');

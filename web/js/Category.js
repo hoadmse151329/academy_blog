@@ -24,11 +24,27 @@ $(document).ready(function () {
 
         }
     });
+    $.ajax({
+        url: "SessionController",
+        type: "GET",
+        async: false,
+        success: function (result) {
+            guestContent.style.display = "none";
+            userContent.style.display = "flex";
+            profileContent.style.display = "list-item";
+            userName.innerHTML = result;
+            userId = result;
+        },
+        error: function (xhr) {
+            guestContent.style.display = "flex";
+            userContent.style.display = "none";
+            profileContent.style.display = "none";
+        }
+    });
 });
 
 function detailPage(detail) {
     window.sessionStorage.setItem("blog", JSON.stringify(detail.data));
     window.location.href = "./page-single-topic.html";
     return false;
-}
-
+    }

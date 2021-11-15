@@ -22,22 +22,28 @@ public class GetUserBlogController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             boolean check = true;
+            String userID = request.getParameter("user");
             String checkError = "";
             BlogDAO dao = new BlogDAO();
             HttpSession session = request.getSession();
             UserDTO user = new UserDTO();
-            try {
-                user = (UserDTO) session.getAttribute("LOGIN_USER");
-            } catch (Exception e) {
-                check = false;
-                checkError = "Please login first";
+            if (userID == null) {
+                try {
+                    user = (UserDTO) session.getAttribute("LOGIN_USER");
+                } catch (Exception e) {
+                    check = false;
+                    checkError = "Please login first";
+                }
             }
-            if (user == null) {
+            if (userID == null && user == null) {
                 check = false;
                 checkError = "Please login first";
             }
             if (check) {
-                List<BlogDTO> blogs = dao.getUserBlog(user.getUserID());
+                if (user.getUserID() != null){
+                    userID = user.getUserID();
+                }
+                List<BlogDTO> blogs = dao.getUserBlog(userID);
                 if (!blogs.isEmpty()) {
                     response.getWriter().write(new Gson().toJson(blogs));
                 }
