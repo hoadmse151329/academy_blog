@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    var guestContent = document.getElementById("guestContent");
+    var userContent = document.getElementById("userContent");
     var blog = JSON.parse(window.sessionStorage.getItem("blog"));
     var blogAuthor = document.getElementById("blogAuthor");
     var blogTitle = document.getElementById("blogTitle");
@@ -28,6 +30,21 @@ $(document).ready(function () {
             alert("FAIL: " + xhr.responseText);
         }
     });
+    $.ajax({
+        url: "SessionController",
+        type: "GET",
+        async: false,
+        success: function (result) {
+            guestContent.style.display = "none";
+            userContent.style.display = "flex";
+            userName.innerHTML = result;
+            userId = result;
+        },
+        error: function (xhr) {
+            guestContent.style.display = "flex";
+            userContent.style.display = "none";
+        }
+    });
     $("#submitButton").click(function (e) {
         e.preventDefault();
         var content = $('#commentData').val();
@@ -37,7 +54,7 @@ $(document).ready(function () {
             data: {blogId: blog.blogId,
                 content},
             success: function (resultText) {
-                 window.location.href = "./page-single-topic.html";
+                window.location.href = "./page-single-topic.html";
             },
             error: function (xhr) {
                 alert("FAIL: " + xhr.responseText);
